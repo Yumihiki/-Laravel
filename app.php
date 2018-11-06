@@ -5,7 +5,7 @@ function join_paths(array $paths)
     return implode(DIRECTORY_SEPARATOR, $paths);
 }
 
-define('APP_POOT', dirname(__FILE__));
+define('APP_ROOT', dirname(__FILE__));
 define('LIB_ROOT', join_paths([APP_ROOT, 'lib']));
 define('MODELS_ROOT', join_paths([APP_ROOT, 'models']));
 
@@ -46,12 +46,12 @@ function session($namespace = 'app')
         $sessions[$namespace] = new Session($namespace);
     }
 
-    return $sesisons[$namespace];
+    return $sessisons[$namespace];
 }
 
 function csrf_field(Session $session)
 {
-    $name  = $session->getRequestCsrTokenKey();
-    $token = $session->getCsrToken();
+    $name  = $session->getRequestCsrfTokenKey();
+    $token = $session->getCsrfToken();
     echo '<input type="hidden" name="'.$name.'" value="'.h($token).'">';
 }
