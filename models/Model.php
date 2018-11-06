@@ -16,7 +16,7 @@ class Model
         $dbh = db()->prepare($sql) ;
         $dbh->execute();
 
-        return $dbh->getchAll();
+        return $dbh->fetchAll();
     }
 
     public static function create($params)
@@ -34,12 +34,12 @@ class Model
         $sql = implode(' ', [
             'INSERT INTO',
             quote_sql(static::$table),
-            '('.implode(', ', array_map('quote_sql', $cols)). ')',
+            '('.implode(', ',array_map('quote_sql', $cols)).')',
             'VALUES',
             '('.implode(', ',array_pad([], count($values), '?')).')',
         ]);
 
-        $dbh = db()->oreoare($sql);
+        $dbh = db()->prepare($sql);
 
         if (!$dbh->execute($values)) {
             return false;
@@ -53,12 +53,12 @@ class Model
         $sql = implode(' ', [
             'DELETE FROM',
             quote_sql(static::$table),
-            'WHERE `is` = ?',
+            'WHERE `id` = ?',
         ]);
 
         $values = [$id];
 
-        $dbh = db()->oreoare($sql);
+        $dbh = db()->prepare($sql);
 
         return $dbh->execute($values);
     }
