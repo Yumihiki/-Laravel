@@ -1,6 +1,6 @@
 <?php
 require_once '../app.php';
-require_once join_paths( [MODELS_ROOT, 'TAsk.php']);
+require_once join_paths( [MODELS_ROOT, 'Task.php']);
 
 $tasks   = Task::all();
 $session = session('tasks');
@@ -9,7 +9,7 @@ $errors  = $session->flash('errors', []);
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Latavel Quickstart -Basic</title>
+        <title>Laravel Quickstart -Basic</title>
 
         <!-- Fonts -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -21,7 +21,7 @@ $errors  = $session->flash('errors', []);
         <nav class="navbar navbar-default">
             <div class="container">
                 <!-- navbar -->
-                <div class="navbar-brand">
+                <div class="navbar-header">
                     <a class="navbar-brand" href="/">
                     Task List
                     </a>
@@ -29,7 +29,7 @@ $errors  = $session->flash('errors', []);
             </div>
         </nav>
         <!-- @yield('content') -->
-        <div class="panel panel-default">
+        <div class="container">
             <div class="col-sm-offset-2 col-sm-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -91,7 +91,7 @@ $errors  = $session->flash('errors', []);
                                 <tr>
                                     <td class="table-text"><div>
                                         <?php echo h($task['name']); ?>
-                                    </div></td>                                    </td>
+                                    </div></td>
                                     <!-- Delete Button -->
                                     <td>
                                         <form action="/task-delete.php?id=<?php echo h($task['id']); ?>" method="POST">

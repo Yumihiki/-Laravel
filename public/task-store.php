@@ -1,17 +1,17 @@
 <?php
 require_once '../app.php';
-require_once join_paths([MODEL_ROOT, 'Task.php']);
+require_once join_paths([MODELS_ROOT, 'Task.php']);
 require_once join_paths([LIB_ROOT, 'Validate.php']);
 
 $session = session('tasks');
 
-if (!$session->verifiCsrToken()) {
+if (!$session->verifyCsrfToken()) {
     $session->set('errors', ['セッションが切れました。ページをリロードしてください！']);
     redirect('/');
 }
 
 $params = [
-    'name' => requset_get('name'),
+    'name' => request_get('name'),
 ];
 
 $errors = Validate::test(
@@ -28,7 +28,7 @@ $errors = Validate::test(
     ]
 );
 
-if ($erroes) {
+if ($erros) {
     $session->set('errors', $errors);
 } else {
     $id = Task::create($params);
