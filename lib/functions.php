@@ -29,7 +29,7 @@ function request_get($key,$default = null)
         return array_get($_POST, $key, $default);
     }
 
-    if (isset($GET[$key])) {
+    if (isset($_GET[$key])) {
         return array_get($_GET, $key, $default);
     }
 
@@ -38,7 +38,7 @@ function request_get($key,$default = null)
 
 function h($string)
 {
-    return htmlspecialchars($string, ENT_QUOETS);
+    return htmlspecialchars($string, ENT_QUOTES);
 }
 
 function quote_sql($string)

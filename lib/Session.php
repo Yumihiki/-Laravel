@@ -25,12 +25,12 @@ class Session
         return 'app_data';
     }
 
-    public function getCsrTokenKey()
+    public function getCsrfTokenKey()
     {
         return 'csrf_token';
     }
 
-    public function getRequestCsrTokenKey()
+    public function getRequestCsrfTokenKey()
     {
         return '__csrf_token';
     }
@@ -40,14 +40,14 @@ class Session
         return sha1(uniqid(rand(), true));
     }
 
-    public function getCsrToken()
+    public function getCsrfToken()
     {
-        return array_get($this->bag, $this->getCsrTokenKey());
+        return array_get($this->bag, $this->getCsrfTokenKey());
     }
 
     public function verifyCsrToken()
     {
-        $request_token = request_get($this->getRequestCsrTokenKey());
+        $request_token = request_get($this->getRequestCsrfTokenKey());
         $valid_token   = $this->getCsrfToken();
 
         return $request_token === $valid_token;
@@ -60,7 +60,7 @@ class Session
 
     public function set($key, $value)
     {
-        return $this->bag[$this->getAppDatakey()][$key] = $value;
+        return $this->bag[$this->getAppDataKey()][$key] = $value;
     }
 
     public function unset($key)

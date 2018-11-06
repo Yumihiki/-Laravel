@@ -4,7 +4,7 @@ class Validate
 {
     public static function test($rules, $params, $messages = [])
     {
-        $erroes = [];
+        $erros = [];
 
         foreach ( $rules as $key => $rule_string) {
             $rule_list = explode('|', $rule_string);
@@ -39,14 +39,13 @@ class Validate
 
     public static function validateNotNumberOnly($value)
     {
-        return !preg_match('/^[0-9０ー９]+$/', straval($value));
+        return !preg_match('/^[0-9０-９]+$/', strval($value));
     }
 
     public static function validateMax($value, $params)
     {
         if(!isset($params[0]) || !intval($params[0])) {
-            throw new Exception('Validate no
-            rule maxにはmax:255のように文字数を指定してください！');
+            throw new Exception('Validateのrule maxにはmax:255のように文字数を指定してください！');
         }
 
         $max_length = $params[0];
